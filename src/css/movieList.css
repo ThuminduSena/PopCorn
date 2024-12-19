@@ -1,0 +1,124 @@
+/* src/components/MovieList.css */
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('../images/backdrop.jpg'); /* Add the background image */
+    background-size: cover; /* Ensures the image covers the entire viewport */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    color: #333;
+}
+  
+  .movies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .movies-title {
+    
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-weight: bold;
+  }
+  
+  .movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .movie-card {
+    background-color: #0000006c;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .movie-poster {
+    width: 80%; /* Ensures the image is smaller than the card */
+    height: 60%; /* Controls the height of the poster */
+    object-fit: cover;
+    margin: 0 auto; /* Centers the image horizontally */
+    margin-top: 20px;
+    border-radius: 5%;
+  }
+  
+  .movie-info {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .movie-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #ffffff;
+    white-space: nowrap; /* Prevent the text from wrapping to the next line */
+    overflow: hidden;    /* Hide overflow content */
+    text-overflow: ellipsis; /* Display ellipsis for overflow content */
+    max-width: 100%;     /* Ensure it respects its container's width */
+  }
+  
+  .movie-detail {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin: 5px 0;
+  }
+  .sort-controls {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .sort-controls label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .sort-controls select {
+    background-color: #00000061; /* Transparent background */
+    border-color: #ffffff; /* White border */
+    border-radius: 10%; /* Rounded corners */
+    border-width: 2px; /* Border thickness */
+    margin-right: 10px; /* Margin between elements */
+    padding: 5px; /* Padding inside the select box */
+    color: #ffffff; /* White text */
+    font-size: 14px; /* Font size */
+}
+.sort-controls label {
+    color: white;
+    font-size: 16px; /* Optional: Adjust size */
+    margin-right: 10px; /* Optional: Space between label and dropdown */
+}
+  
+  .sort-controls button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .sort-controls select option {
+    background-color: #000000; /* Black background for the dropdown list */
+    color: #ffffff; /* White text for options */
+}
+  
+  .sort-controls button:hover {
+    background-color: #000000;
+  }
+  
+  
