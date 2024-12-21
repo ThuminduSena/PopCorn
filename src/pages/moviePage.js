@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase.js";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams to get the movie ID from the URL
-import "../css/moviePage.css"; // Import your styling (optional)
+import { useNavigate, useParams } from "react-router-dom";
+import "../css/moviePage.css";
 
 const MoviePage = () => {
-  const { movieId } = useParams(); // Destructure movieId from useParams
+  const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [showModal, setShowModal] = useState(false); // State for the delete confirmation modal
-  const navigate = useNavigate(); // Use navigate for programmatic navigation
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Function to fetch movie details from Firestore
     const fetchMovieDetails = async () => {
       try {
-        const movieDoc = await db.collection("movies").doc(movieId).get(); // Correctly use movieId
+        const movieDoc = await db.collection("movies").doc(movieId).get();
 
         if (movieDoc.exists) {
-          setMovie({ id: movieDoc.id, ...movieDoc.data() });
+          const movieData = movieDoc.data();
+          // Calculate average rating
+          const ratings = movieData.ratings || [];
+          const avgRating =
+            ratings.length > 0
+              ? ratings.reduce((acc, val) => acc + val, 0) / ratings.length
+              : 0;
+
+          setMovie({ id: movieDoc.id, ...movieData, avgRating });
         } else {
           console.error("No such movie!");
         }
@@ -26,32 +33,30 @@ const MoviePage = () => {
     };
 
     if (movieId) {
-      // Check if movieId exists before making the API call
       fetchMovieDetails();
     }
-  }, [movieId]); // Make sure the effect reruns when movieId changes
+  }, [movieId]);
 
-  // Function to generate stars based on the rating (with 0.25, 0.5, 0.75)
   const renderStars = (rating) => {
-    const fullStars = Math.floor(rating); // Number of full stars (integer part of rating)
-    const halfStar = rating % 1 >= 0.5 && rating % 1 < 0.75 ? 1 : 0; // Half star
-    const quarterStar = rating % 1 >= 0.25 && rating % 1 < 0.5 ? 1 : 0; // Quarter star
-    const threeQuarterStar = rating % 1 >= 0.75 ? 1 : 0; // Three-quarter star
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 && rating % 1 < 0.75 ? 1 : 0;
+    const quarterStar = rating % 1 >= 0.25 && rating % 1 < 0.5 ? 1 : 0;
+    const threeQuarterStar = rating % 1 >= 0.75 ? 1 : 0;
 
     const stars = [];
     for (let i = 0; i < 5; i++) {
       if (i < fullStars) {
-        stars.push(<img src="/images/full.png" alt="Full Star" key={i} />); // Full star
+        stars.push(<img src="/images/full.png" alt="Full Star" key={i} />);
       } else if (i === fullStars && threeQuarterStar) {
         stars.push(
           <img src="/images/threeQuater.png" alt="Three Quarter Star" key={i} />
-        ); // Three-quarter star
+        );
       } else if (i === fullStars && halfStar) {
-        stars.push(<img src="/images/half.png" alt="Half Star" key={i} />); // Half star
+        stars.push(<img src="/images/half.png" alt="Half Star" key={i} />);
       } else if (i === fullStars && quarterStar) {
-        stars.push(<img src="/images/quater.png" alt="Quarter Star" key={i} />); // Quarter star
+        stars.push(<img src="/images/quater.png" alt="Quarter Star" key={i} />);
       } else {
-        stars.push(<img src="/images/empty.png" alt="Empty Star" key={i} />); // Empty star
+        stars.push(<img src="/images/empty.png" alt="Empty Star" key={i} />);
       }
     }
     return stars;
@@ -59,29 +64,27 @@ const MoviePage = () => {
 
   const getRatingClass = (rating) => {
     if (rating <= 2) {
-      return "low-rating"; // Red for low ratings
+      return "low-rating";
     } else if (rating > 2 && rating <= 4) {
-      return "mid-rating"; // Yellow for mid-range ratings
+      return "mid-rating";
     } else {
-      return "high-rating"; // Green for high ratings
+      return "high-rating";
     }
   };
 
   const handleUpdate = () => {
-    // Redirect to the UpdateMovie page
     navigate(`/update-movie/${movieId}`);
   };
 
   const handleDelete = async () => {
     try {
       await db.collection("movies").doc(movieId).delete();
-      navigate("/movies-list"); // Redirect to the movies list page after deletion
+      navigate("/movies-list");
     } catch (error) {
       console.error("Error deleting movie:", error);
     }
   };
 
-  // Toggle modal visibility
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -109,26 +112,22 @@ const MoviePage = () => {
           <p>
             <strong>Year:</strong> {movie.year}
           </p>
-
-          {/* Star Rating Section */}
-
           <p>
             <strong>Description:</strong> {movie.description}
           </p>
         </div>
-        <div className="star-rating-section">
-          <h3 className="star-rating-h3">Rating</h3>
-          <div className={`rating-number ${getRatingClass(movie.rating)}`}>
-            {movie.rating} / 5
+        <div className="stars-rating-section">
+          <h3 className="stars-rating-h3">Rating</h3>
+          <div className={`rating-number ${getRatingClass(movie.avgRating)}`}>
+            {movie.avgRating.toFixed(2)} / 5
           </div>
-          <div className="star-rating">
-            {renderStars(movie.rating).map((star, index) => (
-              <span key={index} className="star">
+          <div className="stars-rating">
+            {renderStars(movie.avgRating).map((star, index) => (
+              <span key={index} className="stars">
                 {star}
               </span>
             ))}
           </div>
-          {/* Update and Delete buttons */}
           <div className="movie-action-buttons">
             <button className="update-button" onClick={handleUpdate}>
               Update Movie
@@ -139,8 +138,6 @@ const MoviePage = () => {
           </div>
         </div>
       </div>
-
-      {/* Modal for delete confirmation */}
       {showModal && (
         <div className="modal">
           <div className="modal-content">

@@ -12,7 +12,6 @@ const AddMovieForm = () => {
     director: "",
     genre: "",
     year: "",
-    rating: "",
     poster: "",
     description: "", // Add description to the movie state
   });
@@ -38,7 +37,6 @@ const AddMovieForm = () => {
         director: movie.director,
         genre: movie.genre,
         year: movie.year,
-        rating: movie.rating,
         poster: movie.poster,
         description: movie.description, // Add description to Firestore document
       });
@@ -49,7 +47,6 @@ const AddMovieForm = () => {
         director: "",
         genre: "",
         year: "",
-        rating: "",
         poster: "",
         description: "", // Reset description field
       });
@@ -108,20 +105,6 @@ const AddMovieForm = () => {
             min="1900"
             max={new Date().getFullYear()}
             placeholder="Enter the year (e.g., 2023)"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="rating">Rating (out of 5):</label>
-          <input
-            type="number"
-            id="rating"
-            name="rating"
-            value={movie.rating}
-            onChange={handleChange}
-            step="0.1"
-            max="5"
-            min="0"
             required
           />
         </div>

@@ -47,18 +47,18 @@
     align-items: left;
   }
   /* Star Rating Section */
-  .star-rating-section {
+  .stars-rating-section {
     text-align: left;
   }
   
-  .star-rating-h3 {
+  .stars-rating-h3 {
     font-size: 3em !important;
     font-weight: bold !important;
     color: #ffffff !important;
     margin-bottom: 20px !important;
   }
   /* Style for the numeric rating text */
-.star-rating-section .rating-number {
+.stars-rating-section .rating-number {
     font-family: 'Arial', sans-serif; /* You can change this to your desired font */
     font-size: 2.5em;
     font-weight: bold;
@@ -68,20 +68,20 @@
   }
   
   /* Color changes for the numeric rating based on value */
-  .star-rating-section .low-rating {
+  .stars-rating-section .low-rating {
     color: #ff0800; /* Red for low ratings */
   }
   
-  .star-rating-section .mid-rating {
+  .stars-rating-section .mid-rating {
     color: #f3a847; /* Yellow for mid ratings */
   }
   
-  .star-rating-section .high-rating {
+  .stars-rating-section .high-rating {
     color: #4caf50; /* Green for high ratings */
   }
   
   /* Optional: Style for the rating section title */
-  .star-rating-section h3 {
+  .stars-rating-section h3 {
     font-size: 2.5em;
     margin-bottom: 20px;
     font-family: 'Roboto', sans-serif; /* You can change this font as well */
@@ -89,20 +89,20 @@
   }
   
   
-  .star-rating {
+  .stars-rating {
     display: flex;
     justify-content: center;
     gap: 10px;
     font-size: 2em;
   }
   
-  .star-rating .star img {
+  .stars-rating .stars img {
     width: 50px; /* Set the size for your stars */
     height: auto; /* Set the size for your stars */
   }
   
   /* Hover effect for stars */
-  .star-rating .star img:hover {
+  .stars-rating .stars img:hover {
     transform: scale(1.2);
     transition: transform 0.2s;
   }

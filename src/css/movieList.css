@@ -120,5 +120,56 @@ body {
   .sort-controls button:hover {
     background-color: #000000;
   }
+  .rating-input {
+    margin-top: 10px;
+  }
+  
+  .rating-input input {
+    padding: 5px;
+    font-size: 1rem;
+    width: 50px;
+    text-align: center;
+  }
+  
+  .movie-info p strong {
+    font-weight: bold;
+  }
+  .star-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically */
+    margin-top: 10px;       /* Optional: Add some spacing above */
+  }
+  
+  .star {
+    width: 24px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .star:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+  }
+  
+  .submit-rating-button {
+    height: 32px;
+    width: 60%;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-rating-button:hover {
+    background-color: #313131;
+  }
+  .custom-hr{
+    width: 80%;
+  }
+    
   
   
