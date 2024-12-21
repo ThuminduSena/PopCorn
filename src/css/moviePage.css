@@ -1,0 +1,176 @@
+/* General styles for the movie detail page */
+.movie-detail-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #0000006c;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+  }
+  
+  .movie-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  
+  .movie-detail-poster {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: block; 
+  }
+  
+  .movie-detail-info {
+    width: 60vh;
+    font-size: 1.1rem;
+    color: #ffffff;
+    line-height: 1.8;
+  }
+  
+  .movie-detail-info p {
+    margin-bottom: 15px;
+  }
+  
+  .movie-detail-info strong {
+    font-weight: bold;
+  }
+  .content{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin: 0 auto;
+    align-items: left;
+  }
+  /* Star Rating Section */
+  .star-rating-section {
+    text-align: left;
+  }
+  
+  .star-rating-h3 {
+    font-size: 3em !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    margin-bottom: 20px !important;
+  }
+  /* Style for the numeric rating text */
+.star-rating-section .rating-number {
+    font-family: 'Arial', sans-serif; /* You can change this to your desired font */
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff0800; /* Default red color for low ratings */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+    margin-bottom: 20px;
+  }
+  
+  /* Color changes for the numeric rating based on value */
+  .star-rating-section .low-rating {
+    color: #ff0800; /* Red for low ratings */
+  }
+  
+  .star-rating-section .mid-rating {
+    color: #f3a847; /* Yellow for mid ratings */
+  }
+  
+  .star-rating-section .high-rating {
+    color: #4caf50; /* Green for high ratings */
+  }
+  
+  /* Optional: Style for the rating section title */
+  .star-rating-section h3 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif; /* You can change this font as well */
+    color: #333;
+  }
+  
+  
+  .star-rating {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 2em;
+  }
+  
+  .star-rating .star img {
+    width: 50px; /* Set the size for your stars */
+    height: auto; /* Set the size for your stars */
+  }
+  
+  /* Hover effect for stars */
+  .star-rating .star img:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+  }
+  .movie-action-buttons {
+    margin-top: 120px;
+  }
+  
+  .update-button, .delete-button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  
+  .update-button:hover {
+    background-color: #45a049;
+  }
+  
+  .delete-button {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #e53935;
+  }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .confirm-delete, .cancel-delete {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .confirm-delete {
+    background-color: red;
+    color: white;
+  }
+  
+  .cancel-delete {
+    background-color: grey;
+    color: white;
+  }
+  

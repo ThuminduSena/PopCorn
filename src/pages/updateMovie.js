@@ -1,12 +1,12 @@
-// src/components/AddMovieForm.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase"; // Import Firestore from firebase.js
+import { useParams, useNavigate } from "react-router-dom"; // Import useNavigate for programmatic navigation
 
 import "../css/addmovie.css"; // Import CSS for styling
-import { useNavigate } from "react-router-dom";
 
-
-const AddMovieForm = () => {
+const UpdateMovieForm = () => {
+  const { movieId } = useParams(); // Get the movieId from the URL params
+  const navigate = useNavigate(); // Use navigate to redirect after updating
   const [movie, setMovie] = useState({
     name: "",
     director: "",
@@ -16,8 +16,24 @@ const AddMovieForm = () => {
     poster: "",
     description: "", // Add description to the movie state
   });
-  const navigate = useNavigate(); // Use navigate for programmatic navigation
 
+  useEffect(() => {
+    // Fetch movie details based on movieId
+    const fetchMovieDetails = async () => {
+      try {
+        const movieDoc = await db.collection("movies").doc(movieId).get();
+        if (movieDoc.exists) {
+          setMovie({ id: movieDoc.id, ...movieDoc.data() }); // Set movie data to form
+        } else {
+          console.error("No such movie!");
+        }
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+      }
+    };
+
+    fetchMovieDetails();
+  }, [movieId]); // Fetch movie details when movieId changes
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -25,44 +41,36 @@ const AddMovieForm = () => {
     setMovie({ ...movie, [name]: value });
   };
 
-  // Handle form submission
+  // Handle form submission (update movie)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Reference the movies collection
-      const collectionRef = db.collection("movies");
+      // Reference the movie document in Firestore
+      const movieRef = db.collection("movies").doc(movieId);
 
-      // Add movie document to Firestore
-      await collectionRef.add({
+      // Update movie document in Firestore
+      await movieRef.update({
         name: movie.name,
         director: movie.director,
         genre: movie.genre,
         year: movie.year,
         rating: movie.rating,
         poster: movie.poster,
-        description: movie.description, // Add description to Firestore document
+        description: movie.description, // Update description
       });
 
-      // Clear the form
-      setMovie({
-        name: "",
-        director: "",
-        genre: "",
-        year: "",
-        rating: "",
-        poster: "",
-        description: "", // Reset description field
-      });
+      // Redirect to the movie page after updating
+      navigate(`/movie/${movieId}`); // Use navigate instead of history.push
 
-      navigate(`/movies-list`); // Use navigate instead of history.push
     } catch (error) {
-      console.error("Error adding movie:", error);
+      console.error("Error updating movie:", error);
+      alert("Failed to update movie.");
     }
   };
 
   return (
     <div className="add-movie-container">
-      <h1>Add New Movie</h1>
+      <h1>Update Movie</h1>
       <form onSubmit={handleSubmit} className="add-movie-form">
         <div className="form-group">
           <label htmlFor="name">Movie Name:</label>
@@ -149,13 +157,13 @@ const AddMovieForm = () => {
             placeholder="Enter movie description..."
             required
           />
-          <small>{movie.description.length}/400 characters</small> {/* Display character count */}
+          <small>{movie.description ? movie.description.length : 0}/400 characters</small> {/* Display character count */}
         </div>
 
-        <button type="submit" className="submit-button">Add Movie</button>
+        <button type="submit" className="submit-button">Update Movie</button>
       </form>
     </div>
   );
 };
 
-export default AddMovieForm;
+export default UpdateMovieForm;

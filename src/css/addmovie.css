@@ -12,7 +12,7 @@ body {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #00000055;
+    background-color: #0000006c;
     border-radius: 5%;
 
   }
@@ -52,14 +52,14 @@ body {
   
   .form-group input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #000000;
   }
   
   .submit-button {
     padding: 12px;
     font-size: 1.2rem;
     color: #fff;
-    background-color: #353637;
+    background-color: #000000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -67,7 +67,7 @@ body {
   }
   
   .submit-button:hover {
-    background-color: #000000;
+    background-color: #353637;
   }
   input::placeholder {
     color: white;
@@ -77,4 +77,31 @@ body {
   input:focus::placeholder {
     color: white; /* Keep the placeholder white when the input is focused */
   }
+  textarea {
+    width: 96%;
+    height: 100px;
+    padding: 10px;
+    font-size: 1em;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    background-color: transparent;  /* Makes the background transparent */
+    color: white;  /* Makes the text color white */
+    font-family: 'Arial', sans-serif; /* Change this to your desired font */
+  }
+  textarea::placeholder {
+    color: #ffffff; /* Change placeholder text color if needed */
+  }
+  
+  textarea:focus {
+    border-color: #000000;
+    outline: none;
+  }
+  
+  small {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #ffffff;
+  }
+  
   

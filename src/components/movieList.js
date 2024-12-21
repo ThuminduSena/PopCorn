@@ -1,12 +1,15 @@
 // src/components/MovieList.js
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase.js";
+import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
 import "../css/movieList.css"; // Import external CSS file
 
 const MoviesList = () => {
   const [movies, setMovies] = useState([]);
   const [sortField, setSortField] = useState("rating"); // Default sort field
   const [sortOrder, setSortOrder] = useState("desc"); // Default sort order
+
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   // Function to fetch movies from Firestore
   const fetchMovies = async () => {
@@ -44,60 +47,69 @@ const MoviesList = () => {
   // Sort movies dynamically whenever sortField or sortOrder changes
   const sortedMovies = sortMovies(movies);
 
+  // Function to handle movie click and redirect to the movie details page
+  const handleMovieClick = (movieId) => {
+    navigate(`/movie/${movieId}`); // Redirect to movie details page using the movie's ID
+  };
+
   return (
     <div className="background">
+      <div className="movies-container">
+        <h1 className="movies-title">Movies Collection</h1>
 
-    <div className="movies-container">
-      <h1 className="movies-title">Movies Collection</h1>
-      {/* Sort Controls */}
-      <div className="sort-controls">
-     <label htmlFor="sortField" className="sort-controls-label">Sort by:</label>
-      <select
-          id="sortField"
-          value={sortField}
-          onChange={(e) => setSortField(e.target.value)}
-        >
-          <option value="rating">Rating</option>
-          <option value="year">Year</option>
-          <option value="name">Name</option>
-        </select>
-        <button
-          onClick={() =>
-            setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"))
-          }
-        >
-          Order: {sortOrder === "asc" ? "Ascending" : "Descending"}
-        </button>
-      </div>
+        {/* Sort Controls */}
+        <div className="sort-controls">
+          <label htmlFor="sortField" className="sort-controls-label">Sort by:</label>
+          <select
+            id="sortField"
+            value={sortField}
+            onChange={(e) => setSortField(e.target.value)}
+          >
+            <option value="rating">Rating</option>
+            <option value="year">Year</option>
+            <option value="name">Name</option>
+          </select>
+          <button
+            onClick={() =>
+              setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"))
+            }
+          >
+            Order: {sortOrder === "asc" ? "Ascending" : "Descending"}
+          </button>
+        </div>
 
-      {/* Movies Grid */}
-      <div className="movies-grid">
-        {sortedMovies.map((movie) => (
-          <div key={movie.id} className="movie-card">
-            <img
-              src={movie.poster || "https://via.placeholder.com/150"}
-              alt={`${movie.name} Poster`}
-              className="movie-poster"
-            />
-            <div className="movie-info">
-              <h3 className="movie-name">{movie.name}</h3>
-              <p className="movie-detail">
-                <strong>Director:</strong> {movie.director}
-              </p>
-              <p className="movie-detail">
-                <strong>Genre:</strong> {movie.genre}
-              </p>
-              <p className="movie-detail">
-                <strong>Year:</strong> {movie.year}
-              </p>
-              <p className="movie-detail">
-                <strong>Rating:</strong> {movie.rating}/5
-              </p>
+        {/* Movies Grid */}
+        <div className="movies-grid">
+          {sortedMovies.map((movie) => (
+            <div
+              key={movie.id}
+              className="movie-card"
+              onClick={() => handleMovieClick(movie.id)} // Handle movie click
+            >
+              <img
+                src={movie.poster || "https://via.placeholder.com/150"}
+                alt={`${movie.name} Poster`}
+                className="movie-poster"
+              />
+              <div className="movie-info">
+                <h3 className="movie-name">{movie.name}</h3>
+                <p className="movie-detail">
+                  <strong>Director:</strong> {movie.director}
+                </p>
+                <p className="movie-detail">
+                  <strong>Genre:</strong> {movie.genre}
+                </p>
+                <p className="movie-detail">
+                  <strong>Year:</strong> {movie.year}
+                </p>
+                <p className="movie-detail">
+                  <strong>Rating:</strong> {movie.rating}/5
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
