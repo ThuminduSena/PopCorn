@@ -98,7 +98,7 @@ const MoviesList = () => {
   };
 
   return (
-    <div className="background">
+    <div className="background-list">
       <div className="movies-container">
         <h1 className="movies-title">Movies Collection</h1>
 

@@ -1,0 +1,58 @@
+/* Navbar styling */
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+.navbar {
+    display: flex;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(60deg, #1b1c1e, #581010da);
+    padding: 10px 20px;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(10px); /* Adjust the blur intensity here */
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+  }
+  
+  /* Navbar links styling */
+  .Navlogo{
+    height: 70px;
+    width: auto;
+  }
+  .navbar .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #ffdd57;
+  }
+  

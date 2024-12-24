@@ -5,11 +5,16 @@ import MoviesList from './components/movieList.js';
 import Home from './pages/home.js';
 import MoviePage from './pages/moviePage.js';
 import UpdateMovieForm from './pages/updateMovie.js';
+import Navbar from './components/navbar.js';
+import LoginPage from './pages/login.js';
+import Auth from './pages/signup.js';
 
 function App() {
   return (
     <Router>
       <div className="App">
+      <Navbar />
+      <div>
         {/* Routes for pages */}
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -18,7 +23,12 @@ function App() {
           <Route path="/movie/:movieId" element={<MoviePage />} /> 
           <Route path="/update-movie/:movieId" element={<UpdateMovieForm />} />
 
+          <Route path="/log-in" element={<LoginPage />} />
+          <Route path="/sign-up" element={<Auth />} />  
+
         </Routes>
+        
+      </div>
       </div>
     </Router>
   );

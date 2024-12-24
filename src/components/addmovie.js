@@ -58,6 +58,8 @@ const AddMovieForm = () => {
   };
 
   return (
+    <div className="background-add">
+
     <div className="add-movie-container">
       <h1>Add New Movie</h1>
       <form onSubmit={handleSubmit} className="add-movie-form">
@@ -137,6 +139,7 @@ const AddMovieForm = () => {
 
         <button type="submit" className="submit-button">Add Movie</button>
       </form>
+    </div>
     </div>
   );
 };

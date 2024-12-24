@@ -1,16 +1,20 @@
 /* src/components/AddMovieForm.css */
-body {
+.background-add {
   margin: 0;
   font-family: 'Arial', sans-serif;
   background-image: url('../images/backdrop.jpg'); /* Add the background image */
   background-size: cover; /* Ensures the image covers the entire viewport */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-attachment: fixed; /* Keeps the background fixed while content scrolls */
   color: #333;
+  min-height: 100vh; /* Ensures body covers the viewport height */
+  padding-top: 100px;
+  padding-bottom: 80px;
 }
 .add-movie-container {
     max-width: 600px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: #0000006c;
     border-radius: 5%;
