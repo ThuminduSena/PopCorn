@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../css/login.css"; // Import CSS for styling
 import { auth } from "../firebase"; // Import Firebase auth
-import { useNavigate } from "react-router-dom"; // For navigation
+import { Link, useNavigate } from "react-router-dom"; // For navigation
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({
@@ -64,6 +64,12 @@ const LoginPage = () => {
             Login
           </button>
         </form>
+        <p className="toggle-message">
+          Don't have an account?
+          <Link to="/sign-up">
+            <span className="toggle-link">Sign Up</span>
+          </Link>
+        </p>
       </div>
     </div>
   );

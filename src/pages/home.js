@@ -82,9 +82,19 @@ const HomePage = () => {
                 <button className="link-button">Add a Movie</button>
               </Link>
             )}
-            <Link to="/movies-list">
-              <button className="link-button">View Movies</button>
-            </Link>
+            {user &&(
+              <Link to="/movies-list">
+                <button className="link-button">View Movies</button>
+              </Link>
+              
+            )}
+            {!user &&(
+              <Link to="/log-in">
+                <button className="link-button">Log In to view movies</button>
+                >
+              </Link>
+              
+            )}
           </div>
         </div>
         <div className="recent-movies">
