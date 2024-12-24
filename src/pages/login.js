@@ -1,34 +1,34 @@
-// src/pages/LoginPage.js
 import React, { useState } from "react";
 import "../css/login.css"; // Import CSS for styling
+import { auth } from "../firebase"; // Import Firebase auth
+import { useNavigate } from "react-router-dom"; // For navigation
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate(); // For navigating to other pages
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Hardcoded username and password for demonstration
-    const validUsername = "admin";
-    const validPassword = "password123";
-
-    if (
-      credentials.username === validUsername &&
-      credentials.password === validPassword
-    ) {
-      alert("Login successful!");
+    try {
+      // Sign in using Firebase Authentication
+      await auth.signInWithEmailAndPassword(credentials.email, credentials.password);
       setErrorMessage("");
-    } else {
-      setErrorMessage("Invalid username or password");
+
+      // Navigate to the home page on successful login
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error.message);
+      setErrorMessage("Invalid email or password");
     }
   };
 
@@ -38,12 +38,12 @@ const LoginPage = () => {
         <h1>Login</h1>
         <form onSubmit={handleLogin} className="login-form">
           <div className="form-group">
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="email">Email:</label>
             <input
-              type="text"
-              id="username"
-              name="username"
-              value={credentials.username}
+              type="email"
+              id="email"
+              name="email"
+              value={credentials.email}
               onChange={handleChange}
               required
             />

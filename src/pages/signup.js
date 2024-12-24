@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "../css/signup.css"; // CSS for styling
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase.js"; // Directly import auth and db
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     email: "",
+    isAdmin: false, // isAdmin is part of the state, it can be updated based on user input or logic
   });
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -21,24 +23,24 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password, username } = formData;
+    const { email, password, username, isAdmin } = formData;
 
     if (email && password && username) {
       try {
-        
         // Create user with email and password using imported auth
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const user = userCredential.user;
+
         // Save user to Firestore using imported db
         await db.collection("users").doc(user.uid).set({
           username,
           email,
+          isAdmin, // Save the isAdmin state from formData
           createdAt: new Date(),
         });
 
-        
         setErrorMessage(""); // Clear any previous error messages
-        navigate("/");
+        navigate("/"); // Redirect to the home page after successful signup
       } catch (error) {
         console.error("Error during signup:", error.message);
         setErrorMessage(error.message); // Show error message if signup fails
@@ -83,6 +85,7 @@ const Signup = () => {
               placeholder="Enter your password"
             />
           </div>
+          {/* Add other fields for isAdmin if needed (e.g., a checkbox) */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <button type="submit" className="signup-button">
             Sign up

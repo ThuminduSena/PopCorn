@@ -42,8 +42,16 @@
   
   .nav-links {
     display: flex;
-    gap: 20px;
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Distributes space between links */
+    gap: 10px; /* Adds spacing between elements */
   }
+  
+  .nav-links span {
+    font-size: 1rem; /* Adjust font size if needed */
+    color: #ffffff; /* Optional: Set text color */
+  }
+  
   
   .nav-links a {
     text-decoration: none;
@@ -54,5 +62,25 @@
   
   .nav-links a:hover {
     color: #ffdd57;
+  }
+  .logout-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Add some padding */
+    font-size: 1rem; /* Adjust font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+  }
+  
+  .logout-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+    transform: scale(1.05); /* Slightly enlarge button */
+  }
+  
+  .logout-button:active {
+    background-color: #b71c1c; /* Even darker red when clicked */
+    transform: scale(0.95); /* Slightly shrink button */
   }
   
