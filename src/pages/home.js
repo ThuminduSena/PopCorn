@@ -91,7 +91,7 @@ const HomePage = () => {
             {!user &&(
               <Link to="/log-in">
                 <button className="link-button">Log In to view movies</button>
-                >
+            
               </Link>
               
             )}

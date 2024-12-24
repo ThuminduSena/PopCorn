@@ -13,6 +13,8 @@ const MoviePage = () => {
   const [currentReviewId, setCurrentReviewId] = useState(null); // Track the review ID for deletion
   const [editReviewText, setEditReviewText] = useState(""); // Track the text for editing
   const [showEditModal, setShowEditModal] = useState(false); // Show/Hide edit modal
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
   const navigate = useNavigate();
   const user = auth.currentUser; // Get current user
 
@@ -87,20 +89,27 @@ const MoviePage = () => {
       alert("Please log in to submit a review.");
       return;
     }
-
+  
     try {
       await db.collection("movies").doc(movieId).collection("reviews").add({
         text: reviewText,
         userEmail: user.email,
         createdAt: new Date(),
       });
-
+  
       setReviewText("");
-      fetchReviews(); // Refresh reviews after adding a new one
+      fetchReviews();
+      
+      setShowSuccessPopup(true);
+  
+      setTimeout(() => {
+        setShowSuccessPopup(false);  // Hide popup after some time
+      }, 3000);
     } catch (error) {
       console.error("Error adding review:", error);
     }
   };
+  
   const handleDeleteReview = async () => {
     if (!currentReviewId) return; // Make sure there's a reviewId
 
@@ -114,6 +123,11 @@ const MoviePage = () => {
 
       fetchReviews(); // Refresh reviews after deletion
       setShowModalReview(false); // Close the delete modal
+      setShowDeletePopup(true);
+  
+      setTimeout(() => {
+        setShowDeletePopup(false);  // Hide popup after some time
+      }, 3000);
     } catch (error) {
       console.error("Error deleting review:", error);
     }
@@ -284,6 +298,18 @@ const MoviePage = () => {
                 </button>
               </div>
             </div>
+          </div>
+        )}
+         {/* Success popup */}
+         {showSuccessPopup && (
+          <div className="success-popup">
+            <p>Done and Dusted! Your submission was successful!</p>
+          </div>
+        )}
+         {/* Success popup */}
+         {showDeletePopup && (
+          <div className="delete-popup">
+            <p>Oops! Looks like this review have left the chat!</p>
           </div>
         )}
 

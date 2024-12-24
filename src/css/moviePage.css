@@ -313,3 +313,28 @@
   background-color: #dc3545;
   color: white;
 }
+.success-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  background-color: #28a745;  /* Green color */
+  color: white;
+  border-radius: 5px;
+  z-index: 1000;  /* Make sure it's on top of other elements */
+  opacity: 1;  /* Ensure it's fully visible */
+}
+.delete-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  background-color: #f43131;  /* Green color */
+  color: white;
+  border-radius: 5px;
+  z-index: 1000;  /* Make sure it's on top of other elements */
+  opacity: 1;  /* Ensure it's fully visible */
+}
+

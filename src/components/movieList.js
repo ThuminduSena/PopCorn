@@ -9,6 +9,7 @@ const MoviesList = () => {
   const [sortOrder, setSortOrder] = useState("desc");
   const [userRatings, setUserRatings] = useState({});
   const [loadingMovieId, setLoadingMovieId] = useState(null); // Track the loading state
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const navigate = useNavigate();
 
@@ -31,29 +32,28 @@ const MoviesList = () => {
   }, []);
 
   const sortMovies = (movies) => {
-  return [...movies].sort((a, b) => {
-    const valueA =
-      sortField === "rating"
-        ? (a.ratings && a.ratings.length > 0
+    return [...movies].sort((a, b) => {
+      const valueA =
+        sortField === "rating"
+          ? a.ratings && a.ratings.length > 0
             ? a.ratings.reduce((acc, val) => acc + val, 0) / a.ratings.length
-            : 0)
-        : a[sortField] || 0;
+            : 0
+          : a[sortField] || 0;
 
-    const valueB =
-      sortField === "rating"
-        ? (b.ratings && b.ratings.length > 0
+      const valueB =
+        sortField === "rating"
+          ? b.ratings && b.ratings.length > 0
             ? b.ratings.reduce((acc, val) => acc + val, 0) / b.ratings.length
-            : 0)
-        : b[sortField] || 0;
+            : 0
+          : b[sortField] || 0;
 
-    if (sortOrder === "asc") {
-      return valueA > valueB ? 1 : -1;
-    } else {
-      return valueA < valueB ? 1 : -1;
-    }
-  });
-};
-
+      if (sortOrder === "asc") {
+        return valueA > valueB ? 1 : -1;
+      } else {
+        return valueA < valueB ? 1 : -1;
+      }
+    });
+  };
 
   const sortedMovies = sortMovies(movies);
 
@@ -89,6 +89,11 @@ const MoviesList = () => {
         });
 
         fetchMovies(); // Refresh movie data
+        setShowSuccessPopup(true);
+
+        setTimeout(() => {
+          setShowSuccessPopup(false); // Hide popup after some time
+        }, 3000);
       }
     } catch (error) {
       console.error("Error submitting rating:", error);
@@ -117,12 +122,19 @@ const MoviesList = () => {
           </select>
           <button
             onClick={() =>
-              setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"))
+              setSortOrder((prevOrder) =>
+                prevOrder === "asc" ? "desc" : "asc"
+              )
             }
           >
             Order: {sortOrder === "asc" ? "Ascending" : "Descending"}
           </button>
         </div>
+        {showSuccessPopup && (
+          <div className="success-popup">
+            <p>Done and Dusted! Your submission was successful!</p>
+          </div>
+        )}
 
         <div className="movies-grid">
           {sortedMovies.map((movie) => (
@@ -147,12 +159,13 @@ const MoviesList = () => {
                 </p>
                 <p className="movie-detail">
                   <strong>Rating:</strong>{" "}
-                  {movie.avgRating ? movie.avgRating.toFixed(2) : "Not Rated"} / 5
+                  {movie.avgRating ? movie.avgRating.toFixed(2) : "Not Rated"} /
+                  5
                 </p>
                 <hr className="custom-hr" />
 
                 <div className="rating-input">
-                  <p style={{color: "#ffffff"}}>Rate this movie:</p>
+                  <p style={{ color: "#ffffff" }}>Rate this movie:</p>
                   <div className="star-container">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <img
@@ -165,7 +178,6 @@ const MoviesList = () => {
                         alt={`${star} Star`}
                         className="star"
                         onClick={() => handleStarClick(movie.id, star)}
-                        
                       />
                     ))}
                   </div>
@@ -174,7 +186,9 @@ const MoviesList = () => {
                     onClick={() => submitRating(movie.id)}
                     disabled={loadingMovieId === movie.id} // Disable button during loading
                   >
-                    {loadingMovieId === movie.id ? "Submitting..." : "Submit Rating"}
+                    {loadingMovieId === movie.id
+                      ? "Submitting..."
+                      : "Submit Rating"}
                   </button>
                 </div>
               </div>
